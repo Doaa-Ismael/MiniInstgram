@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Button, Input, Layout} from '@ui-kitten/components';
+import {login} from '../services/api';
+
+import Modal from './../sharedComponents/modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,10 +34,12 @@ const styles = StyleSheet.create({
 const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const handleLogin = () => {
-    // login logic
-    return navigation.navigate('Home');
+    login(email, password)
+      .then(() => navigation.navigate('Home'))
+      .catch(() => setShowModal(true));
   };
 
   return (
@@ -62,6 +67,11 @@ const SignInScreen = ({navigation}) => {
           </Button>
         </Layout>
       </Layout>
+      <Modal
+        showModal={showModal}
+        onModalClose={() => setShowModal(false)}
+        message={'username/password is invalid'}
+      />
     </SafeAreaView>
   );
 };

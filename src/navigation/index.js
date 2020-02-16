@@ -32,7 +32,7 @@ const getIcon = tabName => {
 
 const NewsFeedsStack = () => {
   return (
-    <FeedsStack.Navigator headerMode={'none'}>
+    <FeedsStack.Navigator>
       <FeedsStack.Screen name="Newfeeds" component={NewsfeedScreen} />
       <FeedsStack.Screen name="AddPost" component={AddPostScreen} />
     </FeedsStack.Navigator>
