@@ -3,15 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "startServer && react-native run-android",
-    "ios": "startServer && react-native run-ios",
-    "start": "startServer && react-native start",
+    "android": "server && react-native run-android",
+    "ios": "server && react-native run-ios",
+    "start": "server && react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "startServer": "json-server --watch db.json"
+    "server": "json-server --watch db.json"
   },
   "dependencies": {
     "@eva-design/eva": "^1.4.0",
+    "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-navigation/bottom-tabs": "^5.0.5",
     "@react-navigation/native": "^5.0.5",

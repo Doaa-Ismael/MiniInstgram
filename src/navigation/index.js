@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -33,8 +33,8 @@ const getIcon = tabName => {
 const NewsFeedsStack = () => {
   return (
     <FeedsStack.Navigator>
-      <FeedsStack.Screen name="Newfeeds" component={NewsfeedScreen} />
-      <FeedsStack.Screen name="AddPost" component={AddPostScreen} />
+      <FeedsStack.Screen name="Newfeeds" component={NewsfeedScreen}/>
+      <FeedsStack.Screen name="AddPost" component={AddPostScreen}/>
     </FeedsStack.Navigator>
   );
 };
@@ -61,15 +61,13 @@ const HomeTabs = () => {
   );
 };
 
-const Navigation = () => {
-  return (
-    <NavigationContainer>
-      <MainStack.Navigator headerMode={'none'}>
-        <MainStack.Screen name="Login" component={SignInScreen} />
-        <MainStack.Screen name="Home" component={HomeTabs} />
-      </MainStack.Navigator>
-    </NavigationContainer>
-  );
-};
+const Navigation = ({initialRoute}) => (
+  <NavigationContainer>
+    <MainStack.Navigator headerMode={'none'} intialRouteName={initialRoute}>
+      <MainStack.Screen name="Home" component={HomeTabs} />
+      <MainStack.Screen name="Login" component={SignInScreen} />
+    </MainStack.Navigator>
+  </NavigationContainer>
+);
 
 export default Navigation;

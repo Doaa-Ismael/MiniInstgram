@@ -6,4 +6,4 @@ const axios = Axios.create({
 });
 
 export const login = (email, password) =>
-  axios.get(`/user?email=${email}&password=${password}`);
+  axios.get(`/users?email=${email}&password=${password}`);

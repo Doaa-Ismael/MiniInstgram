@@ -6,20 +6,34 @@
  * @flow
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {mapping, light as lightTheme} from '@eva-design/eva';
 
 import Navigation from './src/navigation';
+import LoadingScreen from './src/screens/LoadingScreen';
+import {isAuthenticated} from './src/utils/authentication';
 
-const App = () => (
-  <>
-    <IconRegistry icons={EvaIconsPack} />
-    <ApplicationProvider mapping={mapping} theme={lightTheme}>
-      <Navigation />
-    </ApplicationProvider>
-  </>
-);
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialRoute, setInitialRoute] = useState('Login');
+  useEffect(() => {
+    isAuthenticated().then(res => {
+      if (res) setInitialRoute('Home');
+      setIsLoading(false);
+    });
+  });
+
+  if (isLoading) return <LoadingScreen />;
+  return (
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider mapping={mapping} theme={lightTheme}>
+        <Navigation initialRoute={initialRoute} />
+      </ApplicationProvider>
+    </>
+  );
+};
 
 export default App;
