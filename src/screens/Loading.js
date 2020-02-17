@@ -9,10 +9,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const LoadingScreen = () => (
+const Loading = () => (
   <View style={styles.container}>
     <Text>Loading..</Text>
   </View>
 );
 
-export default LoadingScreen;
+export default Loading;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, SafeAreaView} from 'react-native';
+import Header from '../sharedComponents/Header';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
 const AddPostScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <Header title={'Add Post'} />
       <Text>Add Post</Text>
     </SafeAreaView>
   );

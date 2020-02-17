@@ -12,7 +12,7 @@ import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {mapping, light as lightTheme} from '@eva-design/eva';
 
 import Navigation from './src/navigation';
-import LoadingScreen from './src/screens/LoadingScreen';
+import Loading from './src/screens/Loading';
 import {isAuthenticated} from './src/utils/authentication';
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
     });
   });
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading) return <Loading />;
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />

@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Button, Input, Layout} from '@ui-kitten/components';
 import {login} from '../services/api';
+import {setEmail as setEmailInStorage} from './../utils/asyncStorage';
 
-import Modal from './../sharedComponents/modal';
+import Modal from '../sharedComponents/Modal';
 
 const styles = StyleSheet.create({
   container: {
@@ -38,8 +39,11 @@ const SignInScreen = ({navigation}) => {
 
   const handleLogin = () => {
     login(email, password)
-      .then(() => navigation.navigate('Home'))
-      .catch(() => setShowModal(true));
+      .then(() => {
+        navigation.navigate('Home');
+        setEmailInStorage(email);
+      })
+      .catch((e) => {console.log("EER", e); setShowModal(true)});
   };
 
   return (

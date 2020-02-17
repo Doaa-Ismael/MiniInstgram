@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, SafeAreaView, Button} from 'react-native';
+import Header from '../sharedComponents/Header';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +12,7 @@ const styles = StyleSheet.create({
 const NewsfeedScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
+      <Header title={'Newsfeed'} />
       <Text>News feed</Text>
       <Button
         title={'Add Post'}
