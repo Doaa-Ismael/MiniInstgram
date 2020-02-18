@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export const setEmail = email => AsyncStorage.setItem('email', email);
+export const setUserId = userId => AsyncStorage.setItem('userId', userId);
 
-export const getEmail = () => AsyncStorage.getItem('email');
+export const getUserId = () => AsyncStorage.getItem('userId');

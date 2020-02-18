@@ -1,6 +1,6 @@
-import {getEmail} from './asyncStorage';
+import {getUserId} from './asyncStorage';
 
 export const isAuthenticated = async () => {
-  const email = await getEmail().catch(e => console.log('Error: ', e));
-  return !!email;
+  const userId = await getUserId().catch(e => console.log('Error: ', e));
+  return !!userId;
 };

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Button, Input, Layout} from '@ui-kitten/components';
 import {login} from '../services/api';
-import {setEmail as setEmailInStorage} from './../utils/asyncStorage';
+import {setUserId} from './../utils/asyncStorage';
 
 import Modal from '../sharedComponents/Modal';
 
@@ -39,11 +39,14 @@ const SignInScreen = ({navigation}) => {
 
   const handleLogin = () => {
     login(email, password)
-      .then(() => {
+      .then(res => {
+        const [user] = res.data;
         navigation.navigate('Home');
-        setEmailInStorage(email);
+        setUserId(user.id);
       })
-      .catch((e) => {console.log("EER", e); setShowModal(true)});
+      .catch(() => {
+        setShowModal(true);
+      });
   };
 
   return (

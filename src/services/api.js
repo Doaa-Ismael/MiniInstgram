@@ -7,3 +7,9 @@ const axios = Axios.create({
 
 export const login = (email, password) =>
   axios.get(`/users?email=${email}&password=${password}`);
+
+export const addNewPlace = (place, user_id) =>
+  axios.post(`/bucketLists`, {
+    user_id,
+    place,
+  });

@@ -16,15 +16,16 @@ const Tab = createBottomTabNavigator();
 
 const getIcon = tabName => {
   const tabsIconsColors = {
-    Newsfeed: 'red',
-    Bucketlist: 'blue',
-    Profile: 'black',
+    Newsfeed: 'rgb(294, 94, 99)',
+    Bucketlist: 'rgb(255, 186, 92)',
+    Profile: 'rgb(1, 166, 255)',
   };
   return (
     <Icon
       name="square"
-      width={20}
-      height={20}
+      width={16}
+      height={16}
+      style={{backgroundColor: tabsIconsColors[tabName]}}
       fill={tabsIconsColors[tabName]}
     />
   );
@@ -33,8 +34,8 @@ const getIcon = tabName => {
 const NewsFeedsStack = () => {
   return (
     <FeedsStack.Navigator headerMode={'none'}>
-      <FeedsStack.Screen name="Newfeeds" component={NewsfeedScreen} />
-      <FeedsStack.Screen name="AddPost" component={AddPostScreen} />
+      <FeedsStack.Screen name="Newfeeds" component={NewsfeedScreen}/>
+      <FeedsStack.Screen name="AddPost" component={AddPostScreen}/>
     </FeedsStack.Navigator>
   );
 };
@@ -63,7 +64,7 @@ const HomeTabs = () => {
 
 const Navigation = ({initialRoute}) => (
   <NavigationContainer>
-    <MainStack.Navigator headerMode={'none'} intialRouteName={initialRoute}>
+    <MainStack.Navigator headerMode={'none'} initialRouteName={initialRoute}>
       <MainStack.Screen name="Home" component={HomeTabs} />
       <MainStack.Screen name="Login" component={SignInScreen} />
     </MainStack.Navigator>
