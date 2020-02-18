@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Layout, Text} from '@ui-kitten/components';
+import {connect} from 'react-redux';
+
 import Header from '../sharedComponents/Header';
 import HorizontalLine from '../sharedComponents/HorizontalLine';
 
@@ -27,19 +29,25 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProfileScreen = () => {
+const ProfileScreen = user => {
   return (
     <SafeAreaView style={styles.view}>
       <Header title={'Profile'} />
       <Layout style={styles.container}>
         <Layout style={styles.image} />
-        <Text style={styles.name} category="s1">Name</Text>
-        <Text style={styles.text} category="p2">kdd@ddd.dd</Text>
-        <Text style={styles.text} category="p2">23 Years Old</Text>
+        <Text style={styles.name} category="s1">
+          {user.name}
+        </Text>
+        <Text style={styles.text} category="p2">
+          {user.email}
+        </Text>
+        <Text style={styles.text} category="p2">
+          {user.age} Years Old
+        </Text>
       </Layout>
       <HorizontalLine />
     </SafeAreaView>
   );
 };
 
-export default ProfileScreen;
+export default connect(state => ({user: state.user}))(ProfileScreen);

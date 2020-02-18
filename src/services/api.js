@@ -13,3 +13,6 @@ export const addNewPlace = (place, user_id) =>
     user_id,
     place,
   });
+
+export const fetchBucketList = userId =>
+  axios.get(`/bucketLists?user_id=${userId}`);

@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, SafeAreaView, FlatList} from 'react-native';
-import Header from '../sharedComponents/Header';
 import {Button, Icon, Input, Layout, Text} from '@ui-kitten/components';
+import {connect} from 'react-redux';
+
+import Header from '../sharedComponents/Header';
 import HorizontalLine from '../sharedComponents/HorizontalLine';
 import * as API from './../services/api';
 import {getUserId} from '../utils/asyncStorage';
+import {addNewPlace, fetchBucketList} from '../redux/actionCreators';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,23 +40,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const BucketListScreen = ({
-                            bucketList = [{
-                              'id': 1,
-                              'user_id': 'FCCF87D0-D2CC-45CD-2906-747628B5EFC0',
-                              'place': 'Camborne',
-                            },
-                              {
-                                'id': 2,
-                                'user_id': '6D5F84A0-C782-E154-D51F-8EA3AD2DBA24',
-                                'place': 'Armstrong',
-                              },
-                              {
-                                'id': 3,
-                                'user_id': '433B5ADC-7CDA-9631-40EB-32485C8D8B21',
-                                'place': 'Tauranga',
-                              }],
-                          }) => {
+const BucketListScreen = ({fetchBucketList, bucketList}) => {
   const [place, setPlace] = useState('');
   const addNewPlace = async () => {
     if (place) {
@@ -65,6 +52,10 @@ const BucketListScreen = ({
       }
     }
   };
+
+  useEffect(() => {
+    getUserId().then(userId => fetchBucketList(userId))
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,4 +87,12 @@ const BucketListScreen = ({
   );
 };
 
-export default BucketListScreen;
+const mapStateToProps = state => ({
+  bucketList: state.bucketList,
+});
+const mapDispatchToProps = dispatch => ({
+  fetchBucketList: userId => dispatch(fetchBucketList(userId)),
+  addNewPlace: (place, userId) => dispatch(addNewPlace(place, userId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BucketListScreen);
