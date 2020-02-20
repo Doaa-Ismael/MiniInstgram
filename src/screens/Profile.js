@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Layout, Text} from '@ui-kitten/components';
 import {connect} from 'react-redux';
 
 import Header from '../sharedComponents/Header';
 import HorizontalLine from '../sharedComponents/HorizontalLine';
+import {fetchUser} from '../redux/actionCreators';
+import Modal from '../sharedComponents/Modal';
+import {getUserId} from '../utils/asyncStorage';
 
 const styles = StyleSheet.create({
   view: {
@@ -29,12 +32,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProfileScreen = user => {
+const ProfileScreen = ({user, fetchUserAction}) => {
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const errorMessage = 'Something went wrong please try again';
+  useEffect(() => {
+    const fetcUser = async () => {
+      const userId = await getUserId();
+      fetchUserAction(userId);
+      //setShowErrorModal(true));
+    };
+    fetcUser();
+  }, []);
   return (
     <SafeAreaView style={styles.view}>
-      <Header title={'Profile'} />
+      <Header title={'Profile'}/>
       <Layout style={styles.container}>
-        <Layout style={styles.image} />
+        <Layout style={styles.image}/>
         <Text style={styles.name} category="s1">
           {user.name}
         </Text>
@@ -46,8 +59,19 @@ const ProfileScreen = user => {
         </Text>
       </Layout>
       <HorizontalLine />
+      <Modal message={errorMessage} showModal={showErrorModal} />
     </SafeAreaView>
   );
 };
+const mapStateToProps = state => {
+  return ({user: state.user})
+};
 
-export default connect(state => ({user: state.user}))(ProfileScreen);
+const mapDispatchToProps = dispatch => ({
+  fetchUserAction: userId => dispatch(fetchUser(userId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ProfileScreen);

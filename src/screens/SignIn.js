@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {Button, Input, Layout} from '@ui-kitten/components';
-import {connect} from 'react-redux';
 
 import {login} from '../services/api';
 import {setUserId} from './../utils/asyncStorage';
-
 import Modal from '../sharedComponents/Modal';
-import {loggedIn} from '../redux/actionCreators';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInScreen = ({navigation, loggedIn}) => {
+const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -46,7 +43,6 @@ const SignInScreen = ({navigation, loggedIn}) => {
         const [user] = res.data;
         navigation.navigate('Home');
         setUserId(user.id);
-        loggedIn(user);
       })
       .catch(() => {
         setShowModal(true);
@@ -86,8 +82,4 @@ const SignInScreen = ({navigation, loggedIn}) => {
     </SafeAreaView>
   );
 };
-const mapDispatchToProps = dispatch => ({
-  loggedIn: user => dispatch(loggedIn(user)),
-});
-
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default SignInScreen;

@@ -1,4 +1,4 @@
-import {FETCH_BUCKETLIST, ADD_NEW_PLACE, LOGGED_IN} from './constants';
+import {FETCH_BUCKETLIST, ADD_NEW_PLACE, FETCH_USER, ADD_NEW_POST} from './actionsTypes';
 
 export const fetchBucketList = userId => ({
   type: FETCH_BUCKETLIST,
@@ -15,9 +15,17 @@ export const addNewPlace = (place, userId) => ({
   },
 });
 
-export const loggedIn = user => ({
-  type: LOGGED_IN,
+export const addNewPost = (imgUri, userId) => ({
+  type: ADD_NEW_POST,
   payload: {
-    data: user,
+    userId,
+    imgUri,
+  },
+});
+
+export const fetchUser = userId => ({
+  type: FETCH_USER,
+  payload: {
+    userId,
   },
 });

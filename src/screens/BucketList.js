@@ -40,21 +40,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const BucketListScreen = ({fetchBucketList, bucketList}) => {
+const BucketListScreen = ({fetchBucketList, addNewPlaceAction, bucketList}) => {
   const [place, setPlace] = useState('');
   const addNewPlace = async () => {
     if (place) {
       const user_id = await getUserId();
-      const res = await API.addNewPlace(place, user_id);
-      if (res.status === 201) {
-        setPlace('');
-        // update current list
-      }
+      addNewPlaceAction(place, user_id);
+      setPlace('');
     }
   };
 
   useEffect(() => {
-    getUserId().then(userId => fetchBucketList(userId))
+    getUserId().then(userId => fetchBucketList(userId));
   }, []);
 
   return (
@@ -92,7 +89,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   fetchBucketList: userId => dispatch(fetchBucketList(userId)),
-  addNewPlace: (place, userId) => dispatch(addNewPlace(place, userId)),
+  addNewPlaceAction: (place, userId) => dispatch(addNewPlace(place, userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BucketListScreen);
